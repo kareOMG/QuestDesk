@@ -404,10 +404,12 @@ class FloatingWindow(QWidget):
                 no.setObjectName("EmptyState")
                 no.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 pl.addWidget(no)
+            def _bind_toggle(bi, tid):
+                return lambda done=True: self._on_task_toggled(bi, tid, done)
+
             for big, task in tasks:
                 row = SmallTaskRow(task)
-                row.toggled.connect(lambda done, bi=big.id, tid=task.id:
-                                    self._on_task_toggled(bi, tid, done))
+                row.toggled.connect(_bind_toggle(big.id, task.id))
                 pl.addWidget(row)
 
             self.scroll_layout.addWidget(panel)
@@ -423,8 +425,7 @@ class FloatingWindow(QWidget):
             pl.addWidget(head)
             for big, task in unplanned:
                 row = SmallTaskRow(task)
-                row.toggled.connect(lambda done, bi=big.id, tid=task.id:
-                                    self._on_task_toggled(bi, tid, done))
+                row.toggled.connect(_bind_toggle(big.id, task.id))
                 pl.addWidget(row)
             self.scroll_layout.addWidget(panel)
 

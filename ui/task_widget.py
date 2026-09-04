@@ -6,7 +6,7 @@ from models.task import SmallTask, BigTask
 
 class SmallTaskRow(QWidget):
     """小任务行：勾选框 + 标题"""
-    toggled = Signal(str, bool)
+    toggled = Signal(bool)
 
     def __init__(self, task: SmallTask, parent=None):
         super().__init__(parent)
@@ -38,9 +38,7 @@ class SmallTaskRow(QWidget):
     def _on_toggle(self):
         if self.task.done:
             return
-        self.task.done = True
-        self._apply_state()
-        self.toggled.emit(self.task.id, True)
+        self.toggled.emit(True)
 
     def _apply_state(self):
         if self.task.done:

@@ -60,8 +60,8 @@ class TaskService:
         if not big or not task:
             return False, False
 
-        # 如果任务已经处于完成状态，或者试图传入 done=False 取消，直接拒绝并不做任何变更
-        if task.done or not done:
+        # 如果任务已经处于完成且已结算状态，或者试图传入 done=False 取消，直接拒绝并不做任何变更
+        if (task.done and task.awarded) or not done:
             return False, False
 
         was_big_completed = big.completed

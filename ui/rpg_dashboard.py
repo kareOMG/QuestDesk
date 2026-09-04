@@ -70,19 +70,26 @@ class DailyEventCard(QFrame):
         self._apply_style()
 
     def _on_click(self):
-        new_state = not self.task.done
-        self.toggled.emit(self.event_data["big_id"], self.task.id, new_state)
+        if self.task.done:
+            return
+        self.toggled.emit(self.event_data["big_id"], self.task.id, True)
 
     def _apply_style(self):
         p = ThemeManager.palette()
         if self.task.done:
             self.check_btn.setObjectName("TaskDotDone")
             self.check_btn.setText("✓")
+            self.check_btn.setEnabled(False)
+            self.check_btn.setCursor(Qt.CursorShape.ArrowCursor)
+            self.check_btn.setToolTip("已完成")
             self.rpg_title_lbl.setStyleSheet(f"font-size: 14px; font-weight: 600; color: {p['sub']}; text-decoration: line-through;")
             self.content_lbl.setStyleSheet(f"font-size: 13px; color: {p['sub']}; text-decoration: line-through; margin-left: 30px;")
         else:
             self.check_btn.setObjectName("TaskDot")
             self.check_btn.setText("")
+            self.check_btn.setEnabled(True)
+            self.check_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+            self.check_btn.setToolTip("点击完成任务（完成后不可取消）")
             self.rpg_title_lbl.setStyleSheet("font-size: 14px; font-weight: 700; color: #ece7e1;")
             self.content_lbl.setStyleSheet(f"font-size: 13px; color: {p['sub']}; margin-left: 30px;")
         self.check_btn.style().unpolish(self.check_btn)

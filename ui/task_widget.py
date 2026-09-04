@@ -36,19 +36,26 @@ class SmallTaskRow(QWidget):
         layout.addWidget(self.pomo_badge)
 
     def _on_toggle(self):
-        self.task.done = not self.task.done
+        if self.task.done:
+            return
+        self.task.done = True
         self._apply_state()
-        self.toggled.emit(self.task.id, self.task.done)
+        self.toggled.emit(self.task.id, True)
 
     def _apply_state(self):
         if self.task.done:
             self.icon_btn.setObjectName("TaskDotDone")
             self.icon_btn.setText("✓")
-            self.icon_btn.setFont(self.icon_btn.font())
+            self.icon_btn.setEnabled(False)
+            self.icon_btn.setCursor(Qt.CursorShape.ArrowCursor)
+            self.icon_btn.setToolTip("已完成")
             self.title_label.setObjectName("TaskTitleDone")
         else:
             self.icon_btn.setObjectName("TaskDot")
             self.icon_btn.setText("")
+            self.icon_btn.setEnabled(True)
+            self.icon_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+            self.icon_btn.setToolTip("点击完成任务（完成后不可取消）")
             self.title_label.setObjectName("TaskTitle")
         self.icon_btn.style().unpolish(self.icon_btn)
         self.icon_btn.style().polish(self.icon_btn)

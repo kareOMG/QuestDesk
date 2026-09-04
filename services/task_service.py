@@ -51,36 +51,36 @@ class TaskService:
                 })
         return events
 
-    def toggle_task(self, big_id: str, task_id: str, done: bool) -> Tuple[bool, bool]:
+    def toggle_task(self, big_id: str, task_id: str, done: bool = True) -> Tuple[bool, bool]:
         """
-        勾选或取消勾选小任务：
+        完成小任务（单向点击，不可取消）：
         返回: (task_found, is_big_completed)
         """
         big, task = self._find_task(big_id, task_id)
         if not big or not task:
             return False, False
 
-        was_big_completed = big.completed
-        task.done = done
+        # 如果任务已经处于完成状态，或者试图传入 done=False 取消，直接拒绝并不做任何变更
+        if task.done or not done:
+            return False, False
 
-        if done:
-            if not task.awarded:
-                task.awarded = True
-                self.xp.award_task_rewards(big.title, task.xp, task.pomo)
-                # 检查番茄成就
-                total_weekly_pomo = sum(t.pomo for b in self.big_tasks for t in b.tasks if t.done)
-                self.achievements.check_pomo_achievements(total_weekly_pomo)
-                if big.completed and not was_big_completed:
-                    self.user_stats.total_big_tasks_done += 1
-        else:
-            task.awarded = False
-            self.xp.revoke_task_rewards(big.title, task.xp, task.pomo)
+        was_big_completed = big.completed
+        task.done = True
+
+        if not task.awarded:
+            task.awarded = True
+            self.xp.award_task_rewards(big.title, task.xp, task.pomo)
+            # 检查番茄成就
+            total_weekly_pomo = sum(t.pomo for b in self.big_tasks for t in b.tasks if t.done)
+            self.achievements.check_pomo_achievements(total_weekly_pomo)
+            if big.completed and not was_big_completed:
+                self.user_stats.total_big_tasks_done += 1
 
         attr = TASK_ATTRIBUTE_MAP.get(big.title, AttributeType.PRACTICE)
         event_bus.publish(TaskToggledEvent(
             big_id=big.id,
             small_id=task.id,
-            done=done,
+            done=True,
             gained_xp=task.xp,
             attribute=attr,
             pomo=task.pomo,

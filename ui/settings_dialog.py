@@ -236,8 +236,12 @@ class BigTaskEditorDialog(GlassSettingsDialog):
 
         cb = QCheckBox()
         cb.setChecked(task.done)
-        cb.setToolTip("完成状态")
-        cb.setCursor(Qt.CursorShape.PointingHandCursor)
+        if task.done:
+            cb.setEnabled(False)
+            cb.setToolTip("已完成（不可取消）")
+        else:
+            cb.setToolTip("完成状态（单向完成，不可取消）")
+            cb.setCursor(Qt.CursorShape.PointingHandCursor)
 
         edit = QLineEdit(task.title)
         edit.setPlaceholderText("小任务内容")
@@ -293,12 +297,13 @@ class BigTaskEditorDialog(GlassSettingsDialog):
                 continue
             d = (day.currentIndex() - 1) if day.currentIndex() > 0 else None
             pomo_val = pomo_stepper.value()
+            is_done = orig_task.done if (orig_task and orig_task.done) else cb.isChecked()
             self.big.tasks.append(SmallTask(
                 id=orig_task.id if (orig_task and orig_task.id) else f"t-{int(time.time()*1000)+len(self.big.tasks)}",
-                title=title, done=cb.isChecked(), xp=xp.value(), day=d,
+                title=title, done=is_done, xp=xp.value(), day=d,
                 pomo=pomo_val,
                 actual_pomo=getattr(orig_task, 'actual_pomo', pomo_val),
-                awarded=getattr(orig_task, 'awarded', False),
+                awarded=getattr(orig_task, 'awarded', False) or is_done,
             ))
         # 自动按照星期一至星期天顺序调整排序（未排期放在最后）
         self.big.tasks.sort(key=lambda t: 7 if t.day is None else t.day)

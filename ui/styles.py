@@ -86,7 +86,7 @@ QPushButton#TaskDot {{
     border-radius: 9px;
 }}
 QPushButton#TaskDot:hover {{ border-color: {P['text']}; background-color: {P['hover']}; }}
-QPushButton#TaskDotDone {{
+QPushButton#TaskDotDone, QPushButton#TaskDotDone:disabled {{
     background-color: {P['accent']};
     border: none; border-radius: 9px;
     color: #2b2927; font-size: 9px; font-weight: 800;

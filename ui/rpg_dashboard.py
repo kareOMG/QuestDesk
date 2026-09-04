@@ -163,7 +163,7 @@ class RPGDashboard(QWidget):
         lay.addLayout(top_row)
 
         self.xp_bar = QProgressBar()
-        self.xp_bar.setFixedHeight(7)
+        self.xp_bar.setFixedHeight(12)
         lay.addWidget(self.xp_bar)
 
         xp_row = QHBoxLayout()

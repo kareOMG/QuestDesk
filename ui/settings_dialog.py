@@ -312,7 +312,7 @@ class SettingsDialog(GlassSettingsDialog):
     reset_requested = Signal()
 
     def __init__(self, user_stats: UserStats, big_tasks: list, storage: JSONStorage, parent=None):
-        super().__init__("设置", parent, size=(880, 620), min_size=(740, 520))
+        super().__init__("设置", parent, size=(880, 660), min_size=(740, 560))
         self.user_stats = user_stats
         self.big_tasks = big_tasks
         self.storage = storage
@@ -485,8 +485,8 @@ class SettingsDialog(GlassSettingsDialog):
         # 等级卡
         rank_card = QGroupBox()
         rc = QVBoxLayout(rank_card)
-        rc.setContentsMargins(14, 12, 14, 12)
-        rc.setSpacing(8)
+        rc.setContentsMargins(14, 10, 14, 10)
+        rc.setSpacing(6)
 
         name_lbl = QLabel(rank_name(self.user_stats.level))
         name_lbl.setObjectName("SectionTitle")
@@ -514,9 +514,10 @@ class SettingsDialog(GlassSettingsDialog):
         week_task_pomo = sum(t.pomo for b in self.big_tasks for t in b.tasks if t.done)
 
         stats_card = QGroupBox("任务汇总")
+        stats_card.setMinimumHeight(196)
         sc = QVBoxLayout(stats_card)
-        sc.setContentsMargins(14, 12, 14, 12)
-        sc.setSpacing(8)
+        sc.setContentsMargins(14, 10, 14, 10)
+        sc.setSpacing(6)
         rows = [
             ("累计获得经验", f"{self.user_stats.total_xp} XP"),
             ("小任务累计完成", f"{done_small} 次"),
@@ -540,8 +541,8 @@ class SettingsDialog(GlassSettingsDialog):
         # 危险操作区
         danger_card = QGroupBox("危险区域")
         dc = QVBoxLayout(danger_card)
-        dc.setContentsMargins(14, 12, 14, 12)
-        dc.setSpacing(8)
+        dc.setContentsMargins(14, 10, 14, 10)
+        dc.setSpacing(6)
 
         d_tip = QLabel("清空所有个人经验、等级与任务进度，恢复至初始默认数据。此操作不可撤销。")
         d_tip.setObjectName("DialogBody")

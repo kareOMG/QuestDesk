@@ -146,6 +146,12 @@ python main.py
 
 ---
 
+## 🙏 致谢与鸣谢 (Acknowledgements & Credits)
+
+- **游戏图标素材**：本项目中采用的游戏化高保真矢量与像素图标取材自开源项目 [Nieobie/Game-Icon-Pack](https://github.com/Nieobie/Game-Icon-Pack)，特此对原作者的优秀开源工作致以诚挚感谢！
+
+---
+
 ## 🛡️ 开源协议 (License)
 
 本项目采用 [MIT 许可证](LICENSE) 进行开源。欢迎提交 Issue 或 Pull Request，一起让 QuestDesk 变得更加强大有趣！

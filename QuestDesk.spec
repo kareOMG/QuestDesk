@@ -1,4 +1,4 @@
-﻿# -*- mode: python ; coding: utf-8 -*-
+# -*- mode: python ; coding: utf-8 -*-
 import os
 import sys
 
@@ -24,6 +24,12 @@ a = Analysis(
     excludes=['tkinter', 'matplotlib', 'numpy', 'scipy', 'pandas', 'unittest', 'email', 'http', 'xml'],
     noarchive=False,
 )
+
+# 排除系统 PATH (如 Anaconda) 误引用的过时旧版 ICU 动态库，彻底解决 Qt6 找不到指定程序的错误
+a.binaries = [
+    x for x in a.binaries
+    if not any(bad in os.path.basename(x[0]).lower() for bad in ['icudt', 'icuuc', 'icuin'])
+]
 
 pyz = PYZ(a.pure)
 

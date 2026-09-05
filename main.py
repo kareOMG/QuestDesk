@@ -4,6 +4,14 @@ import sys
 # 将当前项目根目录加入 sys.path，确保可相对导入
 if getattr(sys, "frozen", False):
     BASE_DIR = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
+    # 确保 Windows 下 PySide6 与 shiboken6 专属动态库目录优先正确载入
+    for sub in ["", "PySide6", "shiboken6"]:
+        dll_dir = os.path.join(BASE_DIR, sub)
+        if os.path.isdir(dll_dir) and hasattr(os, "add_dll_directory"):
+            try:
+                os.add_dll_directory(dll_dir)
+            except Exception:
+                pass
 else:
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     import PySide6

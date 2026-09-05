@@ -6,6 +6,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt, Signal
 from services.task_service import TaskService
 from ui.styles import ThemeManager
+from ui.task_widget import SmoothProgressBar
 from models.task import DAYS
 from config.constants import AttributeType, DAY_SUBTITLES
 
@@ -169,7 +170,7 @@ class RPGDashboard(QWidget):
         top_row.addWidget(self.streak_badge)
         lay.addLayout(top_row)
 
-        self.xp_bar = QProgressBar()
+        self.xp_bar = SmoothProgressBar()
         self.xp_bar.setFixedHeight(12)
         lay.addWidget(self.xp_bar)
 
@@ -335,7 +336,7 @@ class RPGDashboard(QWidget):
         self.hero_title.setText(f"Lv.{stats.level}  {stats.rank}")
         self.streak_badge.setText(f"🔥 连胜 {stats.streak_days} 天")
         self.xp_bar.setRange(0, max(1, stats.next_level_xp))
-        self.xp_bar.setValue(stats.current_xp)
+        self.xp_bar.animate_to(stats.current_xp, duration_ms=450)
         self.xp_num.setText(f"EXP {stats.current_xp} / {stats.next_level_xp}")
 
         # 2. 刷新双轨学习投入状态值

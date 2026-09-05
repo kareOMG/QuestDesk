@@ -1,3 +1,4 @@
+import os
 from datetime import date, datetime
 
 from PySide6.QtWidgets import (
@@ -22,12 +23,13 @@ from config.constants import DAY_SUBTITLES
 
 from events.event_bus import (
     event_bus, TaskToggledEvent, LevelUpEvent, AchievementUnlockedEvent,
-    StatsUpdatedEvent, WeeklyResetEvent
+    StatsUpdatedEvent, WeeklyResetEvent, AllDailyTasksCompletedEvent
 )
 from services.backup_service import BackupService
 from services.xp_service import XPService
 from services.achievement_service import AchievementService
 from services.task_service import TaskService
+from services.audio_service import AudioService
 
 
 def clamp_unit(v):
@@ -42,7 +44,10 @@ def _clear_layout(lay):
     while lay.count():
         item = lay.takeAt(0)
         if item.widget():
-            item.widget().deleteLater()
+            w = item.widget()
+            w.hide()
+            w.setParent(None)
+            w.deleteLater()
         elif item.layout():
             _clear_layout(item.layout())
 
@@ -151,13 +156,13 @@ class FloatingWindow(QWidget):
             self.user_stats, self.big_tasks, self.storage,
             self.xp_service, self.achievement_service, self.backup_service
         )
+        self.audio_service = AudioService()
 
         # 跨天检查
         self.task_service.check_cross_day()
 
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint
-                            | Qt.WindowType.WindowStaysOnTopHint
-                            | Qt.WindowType.Tool)
+                            | Qt.WindowType.WindowStaysOnTopHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.resize(680, 560)
@@ -173,6 +178,7 @@ class FloatingWindow(QWidget):
         self.on_top = True
 
         self._init_ui()
+        self.setWindowIcon(self._create_app_icon())
         self._init_tray()
         self._apply_opacity()
         self._subscribe_events()
@@ -189,12 +195,18 @@ class FloatingWindow(QWidget):
         event_bus.subscribe(AchievementUnlockedEvent, self._on_achievement_unlocked_event)
         event_bus.subscribe(StatsUpdatedEvent, lambda ev: self._update_stats_ui())
         event_bus.subscribe(WeeklyResetEvent, lambda ev: self._rebuild_cards())
+        event_bus.subscribe(AllDailyTasksCompletedEvent, self._on_all_daily_tasks_completed)
 
     def _on_level_up_event(self, ev: LevelUpEvent):
         LevelUpDialog(ev.new_level, self).exec()
 
     def _on_achievement_unlocked_event(self, ev: AchievementUnlockedEvent):
+        self.task_service.save()
         AchievementUnlockDialog(ev.achievement.name, ev.achievement.description, ev.achievement.icon, self).exec()
+
+    def _on_all_daily_tasks_completed(self, ev: AllDailyTasksCompletedEvent):
+        from ui.celebration_overlay import ConfettiCelebrationOverlay
+        ConfettiCelebrationOverlay(self, task_count=ev.total_tasks, total_pomo=ev.total_pomo)
 
     def _check_cross_day(self):
         self.task_service.check_cross_day()
@@ -265,9 +277,28 @@ class FloatingWindow(QWidget):
         lay.setContentsMargins(16, 12, 12, 6)
         lay.setSpacing(12)
 
-        logo_title = QLabel("⚔️ QuestDesk")
-        logo_title.setStyleSheet("font-size: 15px; font-weight: 800; color: #ece7e1;")
-        lay.addWidget(logo_title)
+        # 可点击的主界面 Logo 徽记（内置敲击动效与彩蛋成就触发）
+        self.logo_btn = QFrame()
+        self.logo_btn.setObjectName("HeaderLogoBtn")
+        self.logo_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.logo_btn.setToolTip("QuestDesk 冒险终端 · 轻叩徽记探索未知")
+
+        logo_inner = QHBoxLayout(self.logo_btn)
+        logo_inner.setContentsMargins(4, 2, 6, 2)
+        logo_inner.setSpacing(8)
+
+        self.logo_img = QLabel()
+        self.logo_img.setFixedSize(26, 26)
+        self.logo_img.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.logo_img.setPixmap(self._get_logo_pixmap(26))
+        logo_inner.addWidget(self.logo_img)
+
+        self.logo_title = QLabel("QuestDesk")
+        self.logo_title.setStyleSheet("font-size: 15px; font-weight: 800; color: #ece7e1;")
+        logo_inner.addWidget(self.logo_title)
+
+        self.logo_btn.mousePressEvent = self._on_logo_clicked
+        lay.addWidget(self.logo_btn)
         lay.addStretch()
 
         summary = self.task_service.get_week_focus_summary()
@@ -327,6 +358,7 @@ class FloatingWindow(QWidget):
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setFrameShape(QFrame.Shape.NoFrame)
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         scroll.setStyleSheet("QScrollArea { background: transparent; border: none; } QScrollArea > QWidget > QWidget { background: transparent; }")
 
         self.scroll_content = QWidget()
@@ -451,6 +483,7 @@ class FloatingWindow(QWidget):
         self._rebuild_cards()
 
         if is_big_completed:
+            self.audio_service.play_quest_complete()
             big, _ = self.task_service._find_task(big_id, task_id)
             if big:
                 QuestCompleteDialog(big.title, big.total, False, self.user_stats.level, self).exec()
@@ -513,7 +546,52 @@ class FloatingWindow(QWidget):
         self._apply_opacity()
         self._rebuild_cards()
 
+    @staticmethod
+    def _get_base_dir() -> str:
+        import sys
+        if getattr(sys, "frozen", False):
+            internal = getattr(sys, "_MEIPASS", "")
+            if os.path.exists(os.path.join(internal, "assets")):
+                return internal
+            return os.path.dirname(sys.executable)
+        return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    def _get_logo_pixmap(self, size: int = 26) -> QPixmap:
+        base_dir = self._get_base_dir()
+        for name in ["logo_128.png", "logo.png"]:
+            path = os.path.join(base_dir, "assets", name)
+            if os.path.exists(path):
+                pix = QPixmap(path)
+                if not pix.isNull():
+                    return pix.scaled(
+                        size, size,
+                        Qt.AspectRatioMode.KeepAspectRatio,
+                        Qt.TransformationMode.SmoothTransformation
+                    )
+        fallback = QPixmap(size, size)
+        fallback.fill(Qt.GlobalColor.transparent)
+        return fallback
+
+    def _on_logo_clicked(self, event=None):
+        # 触感微弹跳动画反馈
+        scaled_small = self._get_logo_pixmap(20)
+        normal = self._get_logo_pixmap(26)
+        self.logo_img.setPixmap(scaled_small)
+        QTimer.singleShot(85, lambda: self.logo_img.setPixmap(normal))
+
+        # 记录敲击并尝试解锁彩蛋成就
+        self.achievement_service.record_logo_click()
+        self.task_service.save()
+
     def _create_app_icon(self) -> QIcon:
+        base_dir = self._get_base_dir()
+        ico_path = os.path.join(base_dir, "assets", "logo.ico")
+        png_path = os.path.join(base_dir, "assets", "logo.png")
+        if os.path.exists(ico_path):
+            return QIcon(ico_path)
+        if os.path.exists(png_path):
+            return QIcon(png_path)
+
         size = 64
         pixmap = QPixmap(size, size)
         pixmap.fill(Qt.GlobalColor.transparent)

@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/logo.png" width="128" height="128" alt="QuestDesk Logo" style="border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);" />
+
 # ⚔️ QuestDesk · 个人学习与成长桌面 RPG 悬浮工作台
 
 **OKR 定方向 ｜ Quest 定行动 ｜ 结果定沉淀**
@@ -9,7 +11,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![PySide6](https://img.shields.io/badge/GUI-PySide6%20(Qt6)-41CD52?style=flat-square&logo=qt&logoColor=white)](https://doc.qt.io/qtforpython/)
 [![License](https://img.shields.io/badge/License-MIT-amber?style=flat-square)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square)](#)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS-lightgrey?style=flat-square)](#)
 
 </div>
 
@@ -23,6 +25,7 @@
 - **拒绝死板的强制打卡**：以周为单位进行节奏编排（专业课启动、数学攻坚、深度工作等），允许日常学习时间自然浮动。
 - **资源化番茄投入**：番茄钟不再只是倒计时工具，而是你可以自由投资到“主线任务攻坚”或“未知自由探索”中的成长资源。
 - **全要素游戏化反馈**：每次小任务攻关、每段番茄专注，都会化作角色经验（EXP）、五维能力属性点与成就徽章，让长期的复习积累可视化、可感知。
+- **沉浸视听与微交互**：轻柔温润的纯净采样提示音、单日任务全清 60fps 烟花纸屑粒子庆祝，以及主界面徽记敲击彩蛋。
 
 ---
 
@@ -47,15 +50,24 @@
 - **主线攻坚番茄**：与具体小任务绑定，完成后直接计入对应科目的专注沉淀。
 - **自由探索模式**：支持随时随地开启一段轻量化自由专注，记录临时自习与发散研究，同样收获成长经验。
 
-### 4. 🏆 成就殿堂与即时荣誉弹窗
-- 内置数十项阶段成就（初出茅庐、专注先锋、全周闭环、五维学者等）。
-- 达成目标即刻弹出全特效荣誉结算卡片，记录每一个拼搏里程碑。
+### 4. 🏆 20 大成就勋章墙与神秘隐藏彩蛋
+- **7 大分类成就体系**：涵盖「起步」、「成长」、「专注」、「学术」、「战役」、「坚韧」与「彩蛋」。
+- **隐秘探索彩蛋机制**：
+  - 🐾 **好奇心害死猫**：连续敲击主界面 Logo 徽记 10 次解锁隐藏机关！
+  - 🦉 **夜巡游侠**：深宵 23:00 之后的寂静攻坚。
+  - 🌅 **晨曦先驱**：清晨 07:00 前的第一缕晨光。
+  - ⚔️ **周末狂战士**：周末不屈攻坚。
+  - 未解锁时显示为 `❓ ？？？（隐藏探索）` 并附带专属诗意探索线索。
 
-### 5. 🪟 极致美学与原生桌面体验
+### 5. 🎵 轻柔音频与 60fps 庆典粒子
+- **零外部依赖音频系统**：基于原生数字波形实时合成纯净温和音效（任务完成轻柔和弦、升级音效、凯旋全清提示音）。
+- **今日试炼全清庆祝**：完成当天所有预定任务即刻触发 60fps 物理粒子礼花彩带喷洒动效，沉浸感拉满。
+
+### 6. 🪟 极致美学与原生桌面体验
 - **暖炭磨砂玻璃（Charcoal Frosted Glass）泛美学**：全局杜绝高饱和度蓝光与刺眼纯白，柔和护眼。
 - **无感边缘八向拉伸**：支持窗口四周及四角任意拖拽缩放，内置智能防死锁最小尺寸保护。
 - **无级透明度调节**：35% ~ 100% 自由预览调节，既可融入桌面壁纸，也能纯色专注。
-- **便捷交互**：支持顶部快速贴边、一键隐藏/唤出托盘、置顶切换与右下角 SizeGrip 调整。
+- **便捷交互**：支持顶部快速贴边、一键隐藏/唤出托盘、置顶切换与独立任务栏应用图标。
 
 ---
 
@@ -63,10 +75,12 @@
 
 ```text
 QuestDesk/
-├── assets/                  # 静态资源
-│   └── icons/               # 武器、头盔、书本、图鉴等游戏化高保真矢量图标
+├── assets/                  # 静态资源与音效
+│   ├── logo.png / logo.ico  # 专属应用 Logo 图标（含多尺寸适配）
+│   ├── icons/               # 武器、头盔、书本、图鉴等游戏化高保真矢量图标
+│   └── sounds/              # 原生纯净采样的任务与成就提示音 (.wav)
 ├── config/                  # 全局配置与常量
-│   └── constants.py         # 五维属性、等级称号映射、每日事件模板与成就预设
+│   └── constants.py         # 五维属性、等级称号映射、每日事件模板与 20 项成就预设
 ├── data/                    # 本地数据存储与快照
 │   ├── okr_data.json        # 核心用户数据（任务、经验、番茄、成就等）
 │   └── backups/             # 自动轮转数据快照备份
@@ -75,24 +89,28 @@ QuestDesk/
 ├── models/                  # 核心数据实体模型
 │   ├── task.py              # 大任务（BigTask）与小任务（SmallTask）
 │   ├── user_stats.py        # 角色属性、等级、经验值与专注统计
-│   └── achievement.py       # 成就定义与进度跟踪
+│   └── achievement.py       # 成就定义、进度跟踪与隐藏彩蛋模型
 ├── services/                # 业务逻辑服务层
 │   ├── task_service.py      # 任务调度、周度复盘与每日事件生成
 │   ├── xp_service.py        # 经验计算与升级判定
-│   ├── achievement_service.py # 成就解锁触发监听
+│   ├── achievement_service.py # 成就解锁触发监听与敲击彩蛋判定
+│   ├── audio_service.py     # 极简无依赖原生音频播放服务
 │   └── backup_service.py    # 数据版本自动快照机制
 ├── storage/                 # 数据持久化接口
-│   └── json_storage.py      # JSON 文件的原子级安全读写
+│   └── json_storage.py      # JSON 文件的原子级安全读写（兼容打包持久化）
 ├── ui/                      # 基于 PySide6 的现代化 UI 界面
-│   ├── floating_window.py   # 悬浮主窗口基类（无边框、磨砂毛玻璃、拖拽吸附）
+│   ├── floating_window.py   # 悬浮主窗口基类（无边框、磨砂毛玻璃、Logo徽记交互）
+│   ├── celebration_overlay.py # 60fps 烟花纸屑物理粒子与凯旋横幅动效
 │   ├── rpg_dashboard.py     # 冒险仪表盘（等级、五维雷达图、每日事件）
 │   ├── task_widget.py       # 周排期任务卡片与清单小组件
 │   ├── settings_dialog.py   # 任务管理、账号统计与外观设置弹窗
 │   ├── free_exploration_dialog.py # 自由探索专注倒计时面板
-│   ├── achievement_widget.py# 荣誉徽章与成就展示网格
+│   ├── achievement_widget.py# 荣誉徽章与成就展示网格（支持隐藏彩蛋遮罩）
 │   ├── toast_dialog.py      # 升级结算、成就解锁与确认对话框
 │   ├── icon_helper.py       # 图标着色与字符清洗适配器
 │   └── styles.py            # 全局 QSS 样式表与单主题色彩空间（PALETTE）
+├── build_windows.bat        # Windows 独立应用程序一键打包脚本
+├── QuestDesk.spec           # PyInstaller 编译规格配置文件
 ├── main.py                  # 应用程序启动入口
 └── requirements.txt         # 项目依赖声明
 ```
@@ -131,6 +149,16 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
+
+### 5. Windows 独立应用打包（一键生成免安装 .exe）
+无需在其他电脑上配置 Python 环境，直接双击根目录下的脚本：
+```cmd
+build_windows.bat
+```
+打包成功后，独立应用程序位于 `dist/QuestDesk/QuestDesk.exe`，并可在该目录下运行 `创建桌面快捷方式.bat` 快速置于桌面！
+
+### 6. macOS 专属适配版本
+针对 Apple Silicon (M1~M4) 及 Intel 芯片进行了系统级原生 CoreAudio (`afplay`) 驱动与苹方字体深度优化，详情参阅 macOS 专属工程配置与 `run.sh` 脚本。
 
 ---
 

@@ -1,7 +1,29 @@
 from PySide6.QtWidgets import (QFrame, QVBoxLayout, QHBoxLayout, QWidget,
                                QLabel, QPushButton, QProgressBar)
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import Qt, Signal, QVariantAnimation, QEasingCurve
 from models.task import SmallTask, BigTask
+
+
+class SmoothProgressBar(QProgressBar):
+    """支持平滑数值补间动画的温润进度条"""
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._anim = None
+
+    def animate_to(self, target_value: int, duration_ms: int = 350):
+        target = max(self.minimum(), min(self.maximum(), int(target_value)))
+        start_val = self.value()
+        if start_val == target:
+            return
+        if self._anim and self._anim.state() == QVariantAnimation.State.Running:
+            self._anim.stop()
+        self._anim = QVariantAnimation(self)
+        self._anim.setDuration(duration_ms)
+        self._anim.setStartValue(start_val)
+        self._anim.setEndValue(target)
+        self._anim.setEasingCurve(QEasingCurve.Type.OutCubic)
+        self._anim.valueChanged.connect(lambda v: super(SmoothProgressBar, self).setValue(int(v)))
+        self._anim.start()
 
 
 class SmallTaskRow(QWidget):
@@ -109,7 +131,7 @@ class BigTaskCard(QFrame):
         layout.addLayout(header)
 
         pct = int(done_cnt / tot_cnt * 100) if tot_cnt > 0 else 0
-        self.progress_bar = QProgressBar()
+        self.progress_bar = SmoothProgressBar()
         self.progress_bar.setValue(pct)
         layout.addWidget(self.progress_bar)
 
@@ -124,4 +146,4 @@ class BigTaskCard(QFrame):
         tot_cnt = len(self.tasks)
         pct = int(done_cnt / tot_cnt * 100) if tot_cnt > 0 else 0
         self.meta_label.setText(f"{done_cnt}/{tot_cnt}")
-        self.progress_bar.setValue(pct)
+        self.progress_bar.animate_to(pct)

@@ -119,14 +119,52 @@ QPushButton#NavBtnActive {{
     font-weight: 600; text-align: center;
 }}
 
-/* ---- 滚动条 ---- */
+/* ---- 滚动条（仿进度条温润质感，消除顶部空隙与杂色穿透） ---- */
 QScrollBar:vertical {{
-    border: none; background: transparent; width: 6px; margin: 0 2px 0 0;
+    border: none;
+    background-color: #3f3d3c;
+    width: 6px;
+    margin: 0px;
+    border-radius: 3px;
 }}
 QScrollBar::handle:vertical {{
-    background-color: {P['track']}; min-height: 24px; border-radius: 3px;
+    background-color: #b2a69a;
+    min-height: 28px;
+    border-radius: 3px;
 }}
-QScrollBar::handle:vertical:hover {{ background-color: {P['hover']}; }}
+QScrollBar::handle:vertical:hover {{
+    background-color: #ded5c9;
+}}
+QScrollBar::handle:vertical:pressed {{
+    background-color: #ffffff;
+}}
+QScrollBar::sub-line:vertical {{
+    border: none;
+    background: none;
+    height: 0px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}}
+QScrollBar::add-line:vertical {{
+    border: none;
+    background: none;
+    height: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}}
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {{
+    background: none;
+    width: 0px;
+    height: 0px;
+}}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {{
+    background: none;
+}}
+QScrollBar:horizontal {{
+    height: 0px;
+    border: none;
+    background: none;
+}}
 
 /* ---- 按钮 ---- */
 QPushButton {{
@@ -434,6 +472,17 @@ QFrame#AchievementCardLocked {{
     background-color: rgba(255, 255, 255, 0.025);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
+}}
+
+/* 主界面 Logo 交互徽记 */
+QFrame#HeaderLogoBtn {{
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}}
+QFrame#HeaderLogoBtn:hover {{
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }}
 """
 

@@ -84,8 +84,9 @@ EVENT_TITLE_TEMPLATES = {
     ]
 }
 
-# 默认预设成就表
+# 默认预设成就表（丰富多类别体系：起步、成长、专注、学术、坚韧、心智、彩蛋）
 PRESET_ACHIEVEMENTS = [
+    # --- 起步与破冰 ---
     {
         "id": "first_blood",
         "name": "初出茅庐",
@@ -94,6 +95,8 @@ PRESET_ACHIEVEMENTS = [
         "category": "起步",
         "target_progress": 1,
     },
+
+    # --- 等级与进阶 ---
     {
         "id": "level_up_1",
         "name": "突破界限",
@@ -102,6 +105,24 @@ PRESET_ACHIEVEMENTS = [
         "category": "成长",
         "target_progress": 2,
     },
+    {
+        "id": "level_5",
+        "name": "资深学者",
+        "description": "角色等级突破至 Lv.5",
+        "icon": "🎖️",
+        "category": "成长",
+        "target_progress": 5,
+    },
+    {
+        "id": "level_10",
+        "name": "星旅探索者",
+        "description": "角色等级突破至 Lv.10",
+        "icon": "👑",
+        "category": "成长",
+        "target_progress": 10,
+    },
+
+    # --- 专注与心流 ---
     {
         "id": "pomo_10",
         "name": "专注学徒",
@@ -119,9 +140,27 @@ PRESET_ACHIEVEMENTS = [
         "target_progress": 30,
     },
     {
+        "id": "pomo_50",
+        "name": "心流大师",
+        "description": "累计完成 50 个番茄钟专注",
+        "icon": "🔮",
+        "category": "专注",
+        "target_progress": 50,
+    },
+    {
+        "id": "pomo_100",
+        "name": "时间领主",
+        "description": "累计完成 100 个番茄钟专注",
+        "icon": "⏳",
+        "category": "专注",
+        "target_progress": 100,
+    },
+
+    # --- 学术与专项攻坚 ---
+    {
         "id": "math_expert",
         "name": "理则破障者",
-        "description": "完成 5 次武忠祥高等数学攻坚任务",
+        "description": "完成 5 次高等数学攻坚任务",
         "icon": "📐",
         "category": "学术",
         "target_progress": 5,
@@ -143,11 +182,83 @@ PRESET_ACHIEVEMENTS = [
         "target_progress": 7,
     },
     {
+        "id": "tri_mastery",
+        "name": "三位一体",
+        "description": "单日内攻破高数、数据结构、英语各至少一项任务",
+        "icon": "🔱",
+        "category": "学术",
+        "target_progress": 3,
+    },
+
+    # --- 战役与毅力 ---
+    {
+        "id": "all_daily_clear",
+        "name": "全境肃清",
+        "description": "达成今日所有预定试炼全数攻克",
+        "icon": "🎯",
+        "category": "战役",
+        "target_progress": 1,
+    },
+    {
+        "id": "streak_3",
+        "name": "坚毅之步",
+        "description": "连续打卡完成任务达到 3 天",
+        "icon": "⚡",
+        "category": "坚韧",
+        "target_progress": 3,
+    },
+    {
+        "id": "streak_7",
+        "name": "七日之誓",
+        "description": "连续打卡完成任务达到 7 天",
+        "icon": "🛡️",
+        "category": "坚韧",
+        "target_progress": 7,
+    },
+    {
         "id": "sunday_review",
         "name": "反思之镜",
         "description": "完成一次周日 Sunday 8 问全周复盘",
         "icon": "🏛️",
         "category": "心智",
         "target_progress": 1,
+    },
+
+    # --- 隐秘与彩蛋 ---
+    {
+        "id": "logo_tapper_10",
+        "name": "好奇心害死猫",
+        "description": "连续敲击主界面 Logo 徽记 10 次，发现隐藏小机关！",
+        "icon": "🐾",
+        "category": "彩蛋",
+        "target_progress": 10,
+        "clue": "主界面的徽记似乎有微弱的灵能反应...敲击试试？",
+    },
+    {
+        "id": "night_owl",
+        "name": "夜巡游侠",
+        "description": "在深夜 23:00 之后完成一次攻坚打卡",
+        "icon": "🦉",
+        "category": "彩蛋",
+        "target_progress": 1,
+        "clue": "在万籁俱寂的深宵，仍有未熄灭的星火...",
+    },
+    {
+        "id": "early_bird",
+        "name": "晨曦先驱",
+        "description": "在清晨 07:00 之前完成一次晨间任务",
+        "icon": "🌅",
+        "category": "彩蛋",
+        "target_progress": 1,
+        "clue": "黎明破晓前，第一缕晨光与笔尖的沙沙声...",
+    },
+    {
+        "id": "weekend_blitz",
+        "name": "周末狂战士",
+        "description": "在周末（周六或周日）攻克 3 个及以上任务",
+        "icon": "⚔️",
+        "category": "彩蛋",
+        "target_progress": 3,
+        "clue": "即便是在休整的周末，猎犬也从未停下追逐...",
     },
 ]

@@ -7,7 +7,7 @@ from storage.json_storage import JSONStorage
 from services.xp_service import XPService
 from services.achievement_service import AchievementService
 from services.backup_service import BackupService
-from events.event_bus import event_bus, TaskToggledEvent, WeeklyResetEvent, StatsUpdatedEvent
+from events.event_bus import event_bus, TaskToggledEvent, WeeklyResetEvent, StatsUpdatedEvent, AllDailyTasksCompletedEvent
 from config.constants import EVENT_TITLE_TEMPLATES, TASK_ATTRIBUTE_MAP, AttributeType
 
 
@@ -64,6 +64,10 @@ class TaskService:
         if (task.done and task.awarded) or not done:
             return False, False
 
+        today = self.get_today_weekday()
+        today_tasks = [t for b in self.big_tasks for t in b.tasks if (t.day == today or t.day is None)]
+        was_all_today_done = len(today_tasks) > 0 and all(t.done for t in today_tasks)
+
         was_big_completed = big.completed
         task.done = True
 
@@ -89,6 +93,15 @@ class TaskService:
         ))
 
         self.save()
+
+        # 检查是否在此刻恰好达成了今日所有试炼的全部攻克
+        is_all_today_done = len(today_tasks) > 0 and all(t.done for t in today_tasks)
+        if not was_all_today_done and is_all_today_done:
+            event_bus.publish(AllDailyTasksCompletedEvent(
+                total_tasks=len(today_tasks),
+                total_pomo=sum(t.pomo for t in today_tasks),
+            ))
+
         return True, (big.completed and not was_big_completed)
 
     def log_free_exploration(self, pomos: int, attribute: str, topic: str = "") -> Tuple[bool, int]:

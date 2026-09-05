@@ -3,7 +3,17 @@ import re
 from PySide6.QtGui import QPixmap, QIcon, QPainter, QColor
 from PySide6.QtCore import Qt
 
-ICONS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "assets", "icons"))
+import sys
+
+def _get_icons_dir() -> str:
+    if getattr(sys, "frozen", False):
+        internal = os.path.join(getattr(sys, "_MEIPASS", ""), "assets", "icons")
+        if os.path.exists(internal):
+            return internal
+        return os.path.join(os.path.dirname(sys.executable), "assets", "icons")
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "assets", "icons"))
+
+ICONS_DIR = _get_icons_dir()
 
 ICON_KEYWORDS = {
     "math.png": ["数", "算", "高数", "代数", "几何", "微积分", "物理"],

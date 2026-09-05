@@ -53,6 +53,13 @@ class WeeklyResetEvent(BaseEvent):
     pass
 
 
+@dataclass
+class AllDailyTasksCompletedEvent(BaseEvent):
+    """当日所有试炼任务全部攻克达成事件"""
+    total_tasks: int = 0
+    total_pomo: int = 0
+
+
 class EventBus:
     def __init__(self):
         self._listeners: Dict[Type[BaseEvent], List[Callable[[Any], None]]] = {}

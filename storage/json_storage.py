@@ -10,7 +10,16 @@ from models.task import BigTask, SmallTask
 from models.achievement import Achievement
 from config.constants import PRESET_ACHIEVEMENTS
 
-DEFAULT_DATA_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "okr_data.json")
+import sys
+
+def _get_default_data_file() -> str:
+    if getattr(sys, "frozen", False):
+        base_dir = os.path.dirname(sys.executable)
+    else:
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_dir, "data", "okr_data.json")
+
+DEFAULT_DATA_FILE = _get_default_data_file()
 SCHEMA_VERSION = 3
 
 _leading_emoji = re.compile(

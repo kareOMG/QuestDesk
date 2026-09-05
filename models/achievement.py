@@ -14,6 +14,7 @@ class Achievement:
     unlocked_at: str = ""
     current_progress: int = 0
     target_progress: int = 1
+    clue: str = ""
 
     @property
     def progress_percentage(self) -> int:
@@ -32,6 +33,7 @@ class Achievement:
             "unlocked_at": self.unlocked_at,
             "current_progress": self.current_progress,
             "target_progress": self.target_progress,
+            "clue": self.clue,
         }
 
     @classmethod
@@ -46,4 +48,5 @@ class Achievement:
             unlocked_at=data.get("unlocked_at", ""),
             current_progress=data.get("current_progress", 0),
             target_progress=data.get("target_progress", 1),
+            clue=data.get("clue", ""),
         )

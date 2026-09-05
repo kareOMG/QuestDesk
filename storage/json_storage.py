@@ -10,16 +10,8 @@ from models.task import BigTask, SmallTask
 from models.achievement import Achievement
 from config.constants import PRESET_ACHIEVEMENTS
 
-import sys
+from core.paths import get_data_file, get_backups_dir
 
-def _get_default_data_file() -> str:
-    if getattr(sys, "frozen", False):
-        base_dir = os.path.dirname(sys.executable)
-    else:
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    return os.path.join(base_dir, "data", "okr_data.json")
-
-DEFAULT_DATA_FILE = _get_default_data_file()
 SCHEMA_VERSION = 3
 
 _leading_emoji = re.compile(
@@ -35,8 +27,8 @@ def _strip_leading_emoji(s: str):
 
 
 class JSONStorage:
-    def __init__(self, filepath: str = DEFAULT_DATA_FILE):
-        self.filepath = os.path.abspath(filepath)
+    def __init__(self, filepath: Optional[str] = None):
+        self.filepath = os.path.abspath(filepath) if filepath else str(get_data_file())
         os.makedirs(os.path.dirname(self.filepath), exist_ok=True)
 
     def load_data(self) -> Tuple[UserStats, List[BigTask], List[Achievement]]:
@@ -93,10 +85,10 @@ class JSONStorage:
 
     def _backup_corrupt_file(self):
         try:
-            base, ext = os.path.splitext(self.filepath)
-            backup = f"{base}.{int(time.time())}.bak{ext}"
-            shutil.copy(self.filepath, backup)
-            print(f"[Info] 损坏数据已备份至: {backup}")
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            backup_path = get_backups_dir() / f"okr_data_corrupt_{timestamp}.json"
+            shutil.copy2(self.filepath, str(backup_path))
+            print(f"[Info] 损坏数据已备份至: {backup_path}")
         except OSError as e:
             print(f"[Warning] 备份失败: {e}")
 

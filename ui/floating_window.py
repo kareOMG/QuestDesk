@@ -15,6 +15,8 @@ from ui.settings_dialog import SettingsDialog
 from ui.rpg_dashboard import RPGDashboard
 from ui.achievement_widget import AchievementView
 from ui.styles import ThemeManager
+from ui.ui_utils import clear_layout, get_smooth_pixmap, load_app_icon
+from core.paths import get_logo_path
 
 from storage.json_storage import JSONStorage
 from models.task import BigTask, DAYS
@@ -37,19 +39,6 @@ def clamp_unit(v):
         return max(0.35, min(1.0, float(v)))
     except (TypeError, ValueError):
         return 0.95
-
-
-def _clear_layout(lay):
-    """递归清理布局及其子布局、子控件，彻底避免跨视图残留孤儿控件"""
-    while lay.count():
-        item = lay.takeAt(0)
-        if item.widget():
-            w = item.widget()
-            w.hide()
-            w.setParent(None)
-            w.deleteLater()
-        elif item.layout():
-            _clear_layout(item.layout())
 
 
 class FramelessGlassContainer(QWidget):
@@ -372,7 +361,7 @@ class FloatingWindow(QWidget):
 
     # ---------- 渲染 ----------
     def _rebuild_cards(self):
-        _clear_layout(self.scroll_layout)
+        clear_layout(self.scroll_layout)
 
         if self.view == "adventure":
             # 首页：全新 RPG 沉浸看板 (角色状态 + Focus/Growth + 今日试炼 + 本周成长)
@@ -546,31 +535,8 @@ class FloatingWindow(QWidget):
         self._apply_opacity()
         self._rebuild_cards()
 
-    @staticmethod
-    def _get_base_dir() -> str:
-        import sys
-        if getattr(sys, "frozen", False):
-            internal = getattr(sys, "_MEIPASS", "")
-            if os.path.exists(os.path.join(internal, "assets")):
-                return internal
-            return os.path.dirname(sys.executable)
-        return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
     def _get_logo_pixmap(self, size: int = 26) -> QPixmap:
-        base_dir = self._get_base_dir()
-        for name in ["logo_128.png", "logo.png"]:
-            path = os.path.join(base_dir, "assets", name)
-            if os.path.exists(path):
-                pix = QPixmap(path)
-                if not pix.isNull():
-                    return pix.scaled(
-                        size, size,
-                        Qt.AspectRatioMode.KeepAspectRatio,
-                        Qt.TransformationMode.SmoothTransformation
-                    )
-        fallback = QPixmap(size, size)
-        fallback.fill(Qt.GlobalColor.transparent)
-        return fallback
+        return get_smooth_pixmap(get_logo_path(), size)
 
     def _on_logo_clicked(self, event=None):
         # 触感微弹跳动画反馈
@@ -584,28 +550,7 @@ class FloatingWindow(QWidget):
         self.task_service.save()
 
     def _create_app_icon(self) -> QIcon:
-        base_dir = self._get_base_dir()
-        ico_path = os.path.join(base_dir, "assets", "logo.ico")
-        png_path = os.path.join(base_dir, "assets", "logo.png")
-        if os.path.exists(ico_path):
-            return QIcon(ico_path)
-        if os.path.exists(png_path):
-            return QIcon(png_path)
-
-        size = 64
-        pixmap = QPixmap(size, size)
-        pixmap.fill(Qt.GlobalColor.transparent)
-        painter = QPainter(pixmap)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.setBrush(QColor("#7d8a95"))
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.drawRoundedRect(QRectF(4, 4, size - 8, size - 8), 14, 14)
-        painter.setPen(QColor("white"))
-        painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.drawLine(22, 34, 28, 40)
-        painter.drawLine(28, 40, 42, 26)
-        painter.end()
-        return QIcon(pixmap)
+        return load_app_icon()
 
     def _init_tray(self):
         self.tray = QSystemTrayIcon(self._create_app_icon(), self)

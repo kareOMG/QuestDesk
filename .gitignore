@@ -1,4 +1,4 @@
-﻿__pycache__/
+__pycache__/
 *.py[cod]
 *.class
 
@@ -6,6 +6,7 @@
 build/
 dist/
 *.egg-info/
+*.zip
 
 # Environments
 .env

@@ -2,22 +2,149 @@
 
 <img src="assets/logo.png" width="128" height="128" alt="QuestDesk Logo" style="border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);" />
 
-# ⚔️ QuestDesk · 个人学习与成长桌面 RPG 悬浮工作台
+# ⚔️ QuestDesk
+### 桌面端个人成长与学习 RPG 悬浮工作台
+### Desktop RPG Floating Task Terminal for Lifelong Learners
 
-**OKR 定方向 ｜ Quest 定行动 ｜ 结果定沉淀**
+**OKR 定方向 ｜ Quest 定行动 ｜ 结果定沉淀**  
+**Direction via OKR ｜ Action via Quest ｜ Growth via Results**
 
-把日常枯燥的考研、自律、代码与学业日程，化作指尖沉浸式的桌面级 RPG 冒险。
+[English](#-english) • [简体中文](#-简体中文)
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
 [![PySide6](https://img.shields.io/badge/GUI-PySide6%20(Qt6)-41CD52?style=flat-square&logo=qt&logoColor=white)](https://doc.qt.io/qtforpython/)
 [![License](https://img.shields.io/badge/License-MIT-amber?style=flat-square)](LICENSE)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/kareOMG/QuestDesk/releases/tag/v1.0.0)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS-lightgrey?style=flat-square)](#)
 
 </div>
 
 ---
 
-## 📖 简介 (Overview)
+<a name="-english"></a>
+## 🇬🇧 English
+
+### 📖 Overview
+
+**QuestDesk** is a lightweight, immersive desktop RPG floating task terminal designed for lifelong learners, students, and software engineers. 
+
+Traditional to-do tools often impose rigid pressure. QuestDesk embraces a **"Natural Fluctuation + Key Result Compounding"** philosophy:
+- **No Rigid Pressure**: Weekly rhythms (Foundations, Deep Work, Review) that adapt to natural study fluctuations.
+- **Pomodoro as Investable Resources**: Pomodoros are dynamic energy units you invest into main campaign quests or free exploration.
+- **Gamified Progression**: Every subtask checked off and every focus session completed feeds directly into character EXP, 5-dimensional attributes, rank titles, and achievement badges.
+- **Immersive Micro-interactions**: Native procedural acoustic chimes, a 60fps celebratory particle fireworks explosion upon clearing all daily tasks, and hidden easter egg interactions.
+
+---
+
+### ✨ Key Features
+
+1. **🎮 Immersive RPG Character & Skill Trees**
+   - **Rank Title Progression**: Climb from `Lv.1 Novice Pathfinder` and `Apprentice` to `Senior Scholar`, `Astral Explorer`, and `Mythic Architect`.
+   - **5-Dimensional Intellectual Attributes**:
+     - 📐 **Math** (Logical reasoning, formula derivation)
+     - 💻 **Coding** (Algorithms, data structures, low-level engineering)
+     - 📖 **English** (Vocabulary, syntax parsing, reading comprehension)
+     - 🛠️ **Practice** (Engineering projects, hands-on development)
+     - 🏛️ **Mind** (Weekly review, metacognition, self-discipline)
+   - **Daily Epic Quest Wrapping**: Ordinary to-dos are dynamically themed into epic RPG trials (e.g. *"Wisdom Trial: Logical Breakthrough"*).
+
+2. **📅 Smart OKR Weekly Schedule**
+   - **Monday–Sunday Thematic Rhythm**: Balance study loads with tailored daily themes.
+   - **Capsule Quest Cards**: Major quest modules with subtask checklists showing real-time progress (`done/total`) and pomodoro budgets.
+   - **Weekly Review & One-Click Settlement**: Sunday review mode rolls over progress, clears daily checkmarks for the upcoming week, while preserving lifetime EXP and unlocked badges.
+
+3. **🍅 Dual-Track Focus System**
+   - **Campaign Quests**: Tied directly to designated subtasks to boost corresponding attribute points.
+   - **Free Exploration Mode**: Launch spontaneous focus sessions anytime to record impromptu learning, still earning valuable EXP.
+
+4. **🏆 20 Badges & Secret Easter Eggs**
+   - **7 Diverse Categories**: Start, Growth, Focus, Academia, Campaign, Resilience, and Easter Eggs.
+   - **Mysterious Hidden Mechanisms**:
+     - 🐾 **Curiosity Killed the Cat**: Tap the top-left Logo badge 10 times to unlock a secret mechanism!
+     - 🦉 **Night Stalker**: Conquering tasks late into the quiet night after 23:00.
+     - 🌅 **Dawn Vanguard**: Seizing the first light of dawn before 07:00.
+     - ⚔️ **Weekend Berserker**: Relentless determination on weekends.
+     - Unlocked easter eggs show as `❓ ??? (Hidden Quest)` accompanied by poetic clues.
+
+5. **🎵 Native Pure Audio & 60fps Confetti**
+   - **Zero-Dependency Native Sound Engine**: Procedural high-fidelity chimes for task completions, level-ups, and daily clears (`winsound` on Windows, native `afplay` on macOS).
+   - **Daily Cleared Celebration**: Completing all daily quests triggers a lively 60fps confetti fireworks cannon animation.
+
+6. **🪟 Charcoal Frosted Glass Aesthetic**
+   - **Warm Charcoal Palette**: High-contrast, glare-free dark translucent glass styling.
+   - **8-Directional Border Resizing**: Effortlessly drag any edge or corner to resize with minimum safe dimensions.
+   - **Stepless Opacity Slider**: Adjust transparency from 35% to 100%.
+   - **Desktop Integration**: Edge snapping, minimize-to-tray, and always-on-top toggle.
+
+---
+
+### 🗂️ Project Structure
+
+```text
+QuestDesk/
+├── assets/                  # Media assets (Logo, task icons, procedural WAV audio)
+├── config/                  # Global constants, attributes, and 20 achievement templates
+├── core/                    # Core path derivation, data isolation, and runtime DLL patches
+├── data/                    # User data storage (okr_data.json) and rolling backups
+├── events/                  # Decoupled publish-subscribe event bus
+├── models/                  # Domain entities (BigTask, SmallTask, UserStats, Achievement)
+├── services/                # Business services (XP, Achievement, Audio, Backup, Task)
+├── storage/                 # Atomic JSON persistence interface
+├── ui/                      # PySide6 modern frameless UI components & animations
+├── QuestDesk.spec           # PyInstaller clean packaging specification
+├── build_windows.bat        # Windows one-click executable builder
+├── main.py                  # Declarative application entry point
+└── requirements.txt         # Minimal runtime dependencies
+```
+
+---
+
+### 🚀 Quick Start (English)
+
+#### Requirements
+- Python 3.10+
+- Windows 10/11, macOS, or modern Linux distribution
+
+#### 1. Clone the repository
+```bash
+git clone https://github.com/kareOMG/QuestDesk.git
+cd QuestDesk
+```
+
+#### 2. Create and activate a virtual environment
+```bash
+# Windows
+python -m venv venv
+.\venv\Scripts\activate
+
+# macOS / Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+
+#### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+#### 4. Run the application
+```bash
+python main.py
+```
+
+#### 5. Windows Standalone Executable
+You can download the pre-packaged green release directly from [GitHub Releases](https://github.com/kareOMG/QuestDesk/releases/tag/v1.0.0), or compile it yourself:
+```cmd
+build_windows.bat
+```
+The portable executable will be generated at `dist/QuestDesk/QuestDesk.exe`.
+
+---
+
+<a name="-简体中文"></a>
+## 🇨🇳 简体中文
+
+### 📖 简介
 
 **QuestDesk** 是一款专为终身学习者、考研攻坚党及程序员打造的**轻量化桌面 RPG 悬浮学习终端**。
 
@@ -29,157 +156,57 @@
 
 ---
 
-## ✨ 核心特性 (Key Features)
+### ✨ 核心特性
 
-### 1. 🎮 沉浸式 RPG 角色与能力成长
-- **阶梯称号体系**：从 `Lv.1 初级探路者`、`进阶学徒`，一路突破至 `星旅探索者`、`传奇造物主`。
-- **五维学识属性**：
-  - 📐 **数学**（逻辑推理、公式推导）
-  - 💻 **编程**（算法构造、底层工程）
-  - 📖 **英语**（词汇积累、长难句语感）
-  - 🛠️ **实践**（课程项目、动手闭环）
-  - 🏛️ **心智**（周度复盘、自律规划）
-- **每日冒险事件包装**：自动将普通的做题、背单词转化为「🌱 智慧试炼 · 极限逻辑突围」、「📐 算理演算 · 核心模块攻坚」等沉浸式史诗任务。
+1. **🎮 沉浸式 RPG 角色与能力成长**
+   - **阶梯称号体系**：从 `Lv.1 初级探路者`、`进阶学徒`，一路突破至 `星旅探索者`、`传奇造物主`。
+   - **五维学识属性**：📐 数学、💻 编程、📖 英语、🛠️ 实践、🏛️ 心智。
+   - **每日冒险事件包装**：自动将普通的复习打卡转化为沉浸式史诗冒险。
 
-### 2. 📅 智能 OKR 周度排期管理
-- **周一至周日节奏编排**：依据脑力与课程负荷定制专属副标题与主线科目。
-- **胶囊排期卡片**：大任务模块（如武忠祥高等数学、数据结构）搭配精炼的小任务清单，清晰呈现完成进度（`done/total`）与番茄预算。
-- **周度复盘与一键重置**：每周日支持「一键结转沉淀」，重置小任务勾选状态开启新一周，同时大任务结构、累积专注度与历史成就永久保留。
+2. **📅 智能 OKR 周度排期管理**
+   - **周一至周日节奏编排**：依据脑力负荷定制专属主线科目。
+   - **胶囊排期卡片**：大任务模块搭配精炼清单，呈现完成进度与番茄预算。
+   - **周度复盘与一键重置**：支持「一键结转沉淀」，开启新一周，累积专注度与历史成就永久保留。
 
-### 3. 🍅 双轨专注投入系统
-- **主线攻坚番茄**：与具体小任务绑定，完成后直接计入对应科目的专注沉淀。
-- **自由探索模式**：支持随时随地开启一段轻量化自由专注，记录临时自习与发散研究，同样收获成长经验。
+3. **🍅 双轨专注投入系统**
+   - **主线攻坚番茄**：与具体小任务绑定，完成后直接计入对应科目沉淀。
+   - **自由探索模式**：支持开启轻量化自由专注，记录临时自习与发散研究。
 
-### 4. 🏆 20 大成就勋章墙与神秘隐藏彩蛋
-- **7 大分类成就体系**：涵盖「起步」、「成长」、「专注」、「学术」、「战役」、「坚韧」与「彩蛋」。
-- **隐秘探索彩蛋机制**：
-  - 🐾 **好奇心害死猫**：连续敲击主界面 Logo 徽记 10 次解锁隐藏机关！
-  - 🦉 **夜巡游侠**：深宵 23:00 之后的寂静攻坚。
-  - 🌅 **晨曦先驱**：清晨 07:00 前的第一缕晨光。
-  - ⚔️ **周末狂战士**：周末不屈攻坚。
-  - 未解锁时显示为 `❓ ？？？（隐藏探索）` 并附带专属诗意探索线索。
+4. **🏆 20 大成就勋章墙与神秘隐藏彩蛋**
+   - **7 大分类成就体系**：起步、成长、专注、学术、战役、坚韧与彩蛋。
+   - **隐秘彩蛋机制**：轻叩主界面 Logo 10 次解锁「🐾 好奇心害死猫」、深宵「🦉 夜巡游侠」、晨曦「🌅 晨曦先驱」、周末「⚔️ 周末狂战士」。
 
-### 5. 🎵 轻柔音频与 60fps 庆典粒子
-- **零外部依赖音频系统**：基于原生数字波形实时合成纯净温和音效（任务完成轻柔和弦、升级音效、凯旋全清提示音）。
-- **今日试炼全清庆祝**：完成当天所有预定任务即刻触发 60fps 物理粒子礼花彩带喷洒动效，沉浸感拉满。
+5. **🎵 轻柔音频与 60fps 庆典粒子**
+   - **跨平台原生零依赖音频引擎**：任务完成轻柔和弦、升级音效、凯旋全清提示音（Windows 使用 `winsound`，macOS 调度原生 `afplay`）。
+   - **今日试炼全清庆祝**：完成当天所有预定任务即刻触发 60fps 物理粒子礼花彩带喷洒动效。
 
-### 6. 🪟 极致美学与原生桌面体验
-- **暖炭磨砂玻璃（Charcoal Frosted Glass）泛美学**：全局杜绝高饱和度蓝光与刺眼纯白，柔和护眼。
-- **无感边缘八向拉伸**：支持窗口四周及四角任意拖拽缩放，内置智能防死锁最小尺寸保护。
-- **无级透明度调节**：35% ~ 100% 自由预览调节，既可融入桌面壁纸，也能纯色专注。
-- **便捷交互**：支持顶部快速贴边、一键隐藏/唤出托盘、置顶切换与独立任务栏应用图标。
+6. **🪟 暖炭磨砂玻璃泛美学**
+   - 全局杜绝刺眼纯白，柔和护眼。
+   - 支持窗口四周及四角八向自由拖拽拉伸。
+   - 35% ~ 100% 无级透明度调节与系统托盘常驻。
 
 ---
 
-## 🗂️ 目录结构 (Directory Structure)
+### 🛠️ 快捷交互说明 / Shortcuts
 
-```text
-QuestDesk/
-├── assets/                  # 静态资源与音效
-│   ├── logo.png / logo.ico  # 专属应用 Logo 图标（含多尺寸适配）
-│   ├── icons/               # 武器、头盔、书本、图鉴等游戏化高保真矢量图标
-│   └── sounds/              # 原生纯净采样的任务与成就提示音 (.wav)
-├── config/                  # 全局配置与常量
-│   └── constants.py         # 五维属性、等级称号映射、每日事件模板与 20 项成就预设
-├── data/                    # 本地数据存储与快照
-│   ├── okr_data.json        # 核心用户数据（任务、经验、番茄、成就等）
-│   └── backups/             # 自动轮转数据快照备份
-├── events/                  # 事件总线解耦层
-│   └── event_bus.py         # 发布-订阅式事件分发中心
-├── models/                  # 核心数据实体模型
-│   ├── task.py              # 大任务（BigTask）与小任务（SmallTask）
-│   ├── user_stats.py        # 角色属性、等级、经验值与专注统计
-│   └── achievement.py       # 成就定义、进度跟踪与隐藏彩蛋模型
-├── services/                # 业务逻辑服务层
-│   ├── task_service.py      # 任务调度、周度复盘与每日事件生成
-│   ├── xp_service.py        # 经验计算与升级判定
-│   ├── achievement_service.py # 成就解锁触发监听与敲击彩蛋判定
-│   ├── audio_service.py     # 极简无依赖原生音频播放服务
-│   └── backup_service.py    # 数据版本自动快照机制
-├── storage/                 # 数据持久化接口
-│   └── json_storage.py      # JSON 文件的原子级安全读写（兼容打包持久化）
-├── ui/                      # 基于 PySide6 的现代化 UI 界面
-│   ├── floating_window.py   # 悬浮主窗口基类（无边框、磨砂毛玻璃、Logo徽记交互）
-│   ├── celebration_overlay.py # 60fps 烟花纸屑物理粒子与凯旋横幅动效
-│   ├── rpg_dashboard.py     # 冒险仪表盘（等级、五维雷达图、每日事件）
-│   ├── task_widget.py       # 周排期任务卡片与清单小组件
-│   ├── settings_dialog.py   # 任务管理、账号统计与外观设置弹窗
-│   ├── free_exploration_dialog.py # 自由探索专注倒计时面板
-│   ├── achievement_widget.py# 荣誉徽章与成就展示网格（支持隐藏彩蛋遮罩）
-│   ├── toast_dialog.py      # 升级结算、成就解锁与确认对话框
-│   ├── icon_helper.py       # 图标着色与字符清洗适配器
-│   └── styles.py            # 全局 QSS 样式表与单主题色彩空间（PALETTE）
-├── build_windows.bat        # Windows 独立应用程序一键打包脚本
-├── QuestDesk.spec           # PyInstaller 编译规格配置文件
-├── main.py                  # 应用程序启动入口
-└── requirements.txt         # 项目依赖声明
-```
-
----
-
-## 🚀 快速开始 (Getting Started)
-
-### 环境依赖
-- Python 3.10 或更高版本
-- Windows 10/11、macOS 或主流 Linux 发行版
-
-### 1. 克隆仓库
-```bash
-git clone https://github.com/kareOMG/QuestDesk.git
-cd QuestDesk
-```
-
-### 2. 创建并激活虚拟环境（推荐）
-```bash
-# Windows
-python -m venv venv
-.\venv\Scripts\activate
-
-# macOS / Linux
-python3 -m venv venv
-source venv/bin/activate
-```
-
-### 3. 安装依赖包
-```bash
-pip install -r requirements.txt
-```
-
-### 4. 启动运行
-```bash
-python main.py
-```
-
-### 5. Windows 独立应用打包（一键生成免安装 .exe）
-无需在其他电脑上配置 Python 环境，直接双击根目录下的脚本：
-```cmd
-build_windows.bat
-```
-打包成功后，独立应用程序位于 `dist/QuestDesk/QuestDesk.exe`，并可在该目录下运行 `创建桌面快捷方式.bat` 快速置于桌面！
-
-### 6. macOS 专属适配版本
-针对 Apple Silicon (M1~M4) 及 Intel 芯片进行了系统级原生 CoreAudio (`afplay`) 驱动与苹方字体深度优化，详情参阅 macOS 专属工程配置与 `run.sh` 脚本。
-
----
-
-## 🛠️ 键盘与快捷交互 (Shortcuts & Interactions)
-
-| 交互动作 | 作用说明 |
+| 交互动作 / Action | 作用说明 / Description |
 | :--- | :--- |
-| **按住窗口顶部拖拽** | 自由移动桌面悬浮窗 |
-| **拖拽窗口边缘/四角** | 实时拉伸调整长宽，自适应内容展示 |
-| **点击小任务圆圈** | 标记攻克完成，自动结算经验与番茄点数 |
-| **周度复盘与一键重置** | 每周结算并清空勾选状态，开启新一周冒险 |
-| **设置 -> 外观** | 无级调节面板背景不透明度（35% ~ 100%） |
+| **拖拽窗口顶部 / Drag Window Header** | 自由移动桌面悬浮窗 / Move floating window freely |
+| **拖拽窗口边缘或四角 / Drag Borders & Corners** | 实时拉伸调整长宽尺寸 / Resize window smoothly in 8 directions |
+| **轻叩主界面 Logo / Tap Header Logo** | 触发微弹跳动画，点击 10 次探索彩蛋 / Trigger micro-bounce, tap 10x for easter egg |
+| **点击任务圆圈 / Click Task Checkbox** | 标记攻克完成并结算经验音效 / Mark task done with chime feedback & XP settlement |
+| **周度复盘与一键重置 / Weekly Reset** | 每周结算并清空勾选状态 / Rollover progress and reset checklist for the new week |
+| **设置 -> 外观 / Settings -> Opacity** | 无级调节面板背景不透明度 (35% ~ 100%) / Adjust background glass opacity seamlessly |
 
 ---
 
-## 🙏 致谢与鸣谢 (Acknowledgements & Credits)
+### 🙏 致谢 / Acknowledgements
 
-- **游戏图标素材**：本项目中采用的游戏化高保真矢量与像素图标取材自开源项目 [Nieobie/Game-Icon-Pack](https://github.com/Nieobie/Game-Icon-Pack)，特此对原作者的优秀开源工作致以诚挚感谢！
+- **Game Icon Assets**: 本项目中采用的游戏化高保真矢量与像素图标取材自开源项目 [Nieobie/Game-Icon-Pack](https://github.com/Nieobie/Game-Icon-Pack)，特此对原作者致以诚挚感谢！
 
 ---
 
-## 🛡️ 开源协议 (License)
+### 🛡️ 开源协议 / License
 
-本项目采用 [MIT 许可证](LICENSE) 进行开源。欢迎提交 Issue 或 Pull Request，一起让 QuestDesk 变得更加强大有趣！
+本项目采用 [MIT 许可证](LICENSE) 进行开源。欢迎提交 Issue 或 Pull Request！  
+This project is open-sourced under the [MIT License](LICENSE).

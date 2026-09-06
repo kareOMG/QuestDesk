@@ -104,36 +104,36 @@ class JSONStorage:
             return SmallTask(id=id_, title=title, done=done, xp=xp, awarded=done, day=day, pomo=pomo)
 
         big_tasks = [
-            BigTask("math", "武忠祥高等数学", [
-                st("math-tue", "做一组知识点习题", False, 40, day=1, pomo=1),
-                st("math-wed", "完整攻克 1 个知识点并做题", False, 50, day=2, pomo=2),
-                st("math-thu", "攻克完整模块与错题整理", False, 60, day=3, pomo=3),
-                st("math-fri", "巩固练习与错题回顾", False, 40, day=4, pomo=2),
-                st("math-sat", "本周数学闭环与综合练习", False, 60, day=5, pomo=3),
-                st("math-sun", "数学补漏（依本周欠账选做）", False, 30, day=6, pomo=1),
-            ], pomo_budget=10),
-            BigTask("ds", "数据结构（C语言）", [
-                st("ds-thu", "阅读严蔚敏教材，C 语言手写实现", False, 50, day=3, pomo=2),
-                st("ds-fri", "算法逻辑验证与代码调试", False, 40, day=4, pomo=1),
-                st("ds-sat", "完成数据结构主题实现（链表/树）", False, 60, day=5, pomo=2),
-            ], pomo_budget=6),
-            BigTask("en", "考研英语", [
-                st("en-mon", "单词打卡", False, 30, day=0, pomo=1),
-                st("en-tue", "单词与长难句分析", False, 30, day=1, pomo=1),
-                st("en-wed", "单词打卡与语法巩固", False, 30, day=2, pomo=1),
-                st("en-thu", "单词打卡与语法强化", False, 30, day=3, pomo=1),
-                st("en-fri", "单词打卡", False, 30, day=4, pomo=1),
-                st("en-sat", "真题长难句与词汇攻坚", False, 40, day=5, pomo=1),
-                st("en-sun", "单词打卡与周度复习", False, 30, day=6, pomo=1),
+            BigTask("math", "高等数学", [
+                st("math-tue", "极限与微分学核心例题演算", False, 40, day=1, pomo=1),
+                st("math-wed", "定积分与微分方程重点攻坚", False, 50, day=2, pomo=2),
+                st("math-thu", "多元函数与级数核心考点突破", False, 60, day=3, pomo=2),
+                st("math-fri", "经典例题变式训练与疑难排查", False, 40, day=4, pomo=1),
+                st("math-sat", "本周数学模块综合练习与模拟", False, 60, day=5, pomo=2),
+                st("math-sun", "数学错题闭环与公式速查复盘", False, 30, day=6, pomo=1),
+            ], pomo_budget=9),
+            BigTask("ds", "数据结构与算法", [
+                st("ds-thu", "经典线性表与树形结构算法手写", False, 50, day=3, pomo=2),
+                st("ds-fri", "图论与动态规划算法逻辑验证", False, 40, day=4, pomo=1),
+                st("ds-sat", "高频面试算法题自测与代码重构", False, 60, day=5, pomo=2),
+            ], pomo_budget=5),
+            BigTask("en", "外语读写与学术积累", [
+                st("en-mon", "核心高频学术词汇打卡 50 词", False, 30, day=0, pomo=1),
+                st("en-tue", "经典外刊长难句精读与语法解析", False, 30, day=1, pomo=1),
+                st("en-wed", "学术听力与跟读训练 30 分钟", False, 30, day=2, pomo=1),
+                st("en-thu", "专业外语文献深度速读与摘要", False, 30, day=3, pomo=1),
+                st("en-fri", "真题阅读理解精炼与生词归纳", False, 30, day=4, pomo=1),
+                st("en-sat", "学术写作句型仿写与词汇巩固", False, 40, day=5, pomo=1),
+                st("en-sun", "全周生词本盲测与周度复盘", False, 30, day=6, pomo=1),
             ], pomo_budget=7),
-            BigTask("cs", "专业课复盘与实践", [
-                st("cs-mon", "课程复盘：嵌入式 / JavaEE / 计网", False, 40, day=0, pomo=1),
-                st("cs-tue", "移动开发实践：课堂代码重跑与功能实现", False, 50, day=1, pomo=2),
-                st("cs-wed", "操作系统复盘：整理课堂理论与机制", False, 40, day=2, pomo=1),
-                st("cs-fri", "专业课欠账清理：检查遗留作业与代码", False, 40, day=4, pomo=1),
-            ], pomo_budget=6),
+            BigTask("cs", "专业实践与项目构建", [
+                st("cs-mon", "项目架构设计与核心模块规划", False, 40, day=0, pomo=1),
+                st("cs-tue", "核心接口开发与功能逻辑实现", False, 50, day=1, pomo=2),
+                st("cs-wed", "单元测试编写与代码质量检查", False, 40, day=2, pomo=1),
+                st("cs-fri", "项目文档撰写与遗留问题清理", False, 40, day=4, pomo=1),
+            ], pomo_budget=5),
             BigTask("review", "周度复盘与休整", [
-                st("rev-sun", "Sunday 8 问周度复盘清单", False, 50, day=6, pomo=2),
+                st("rev-sun", "Sunday 8 问全周深度复盘清单", False, 50, day=6, pomo=2),
             ], pomo_budget=2),
         ]
 

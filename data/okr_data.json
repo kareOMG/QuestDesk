@@ -9,8 +9,8 @@
     "theme_mode": "dark",
     "total_xp": 0,
     "pomo_today": 0,
-    "last_active_date": "2026-09-05",
-    "streak_days": 2,
+    "last_active_date": "",
+    "streak_days": 1,
     "total_small_tasks_done": 0,
     "total_big_tasks_done": 0,
     "task_pomo_today": 0,
@@ -40,11 +40,11 @@
   "big_tasks": [
     {
       "id": "math",
-      "title": "武忠祥高等数学",
+      "title": "高等数学",
       "tasks": [
         {
           "id": "math-tue",
-          "title": "做一组知识点习题",
+          "title": "极限与微分学核心例题演算",
           "done": false,
           "xp": 40,
           "awarded": false,
@@ -54,7 +54,7 @@
         },
         {
           "id": "math-wed",
-          "title": "完整攻克 1 个知识点并做题",
+          "title": "定积分与微分方程重点攻坚",
           "done": false,
           "xp": 50,
           "awarded": false,
@@ -64,37 +64,37 @@
         },
         {
           "id": "math-thu",
-          "title": "攻克完整模块与错题整理",
+          "title": "多元函数与级数核心考点突破",
           "done": false,
           "xp": 60,
           "awarded": false,
           "day": 3,
-          "pomo": 3,
-          "actual_pomo": 1
-        },
-        {
-          "id": "math-fri",
-          "title": "巩固练习与错题回顾",
-          "done": false,
-          "xp": 40,
-          "awarded": false,
-          "day": 4,
           "pomo": 2,
           "actual_pomo": 1
         },
         {
+          "id": "math-fri",
+          "title": "经典例题变式训练与疑难排查",
+          "done": false,
+          "xp": 40,
+          "awarded": false,
+          "day": 4,
+          "pomo": 1,
+          "actual_pomo": 1
+        },
+        {
           "id": "math-sat",
-          "title": "本周数学闭环与综合练习",
+          "title": "本周数学模块综合练习与模拟",
           "done": false,
           "xp": 60,
           "awarded": false,
           "day": 5,
-          "pomo": 3,
+          "pomo": 2,
           "actual_pomo": 1
         },
         {
           "id": "math-sun",
-          "title": "数学补漏（依本周欠账选做）",
+          "title": "数学错题闭环与公式速查复盘",
           "done": false,
           "xp": 30,
           "awarded": false,
@@ -103,15 +103,15 @@
           "actual_pomo": 1
         }
       ],
-      "pomo_budget": 12
+      "pomo_budget": 9
     },
     {
       "id": "ds",
-      "title": "数据结构（C语言）",
+      "title": "数据结构与算法",
       "tasks": [
         {
           "id": "ds-thu",
-          "title": "阅读严蔚敏教材，C 语言手写实现",
+          "title": "经典线性表与树形结构算法手写",
           "done": false,
           "xp": 50,
           "awarded": false,
@@ -121,7 +121,7 @@
         },
         {
           "id": "ds-fri",
-          "title": "算法逻辑验证与代码调试",
+          "title": "图论与动态规划算法逻辑验证",
           "done": false,
           "xp": 40,
           "awarded": false,
@@ -131,7 +131,7 @@
         },
         {
           "id": "ds-sat",
-          "title": "完成数据结构主题实现（链表/树）",
+          "title": "高频面试算法题自测与代码重构",
           "done": false,
           "xp": 60,
           "awarded": false,
@@ -144,11 +144,11 @@
     },
     {
       "id": "en",
-      "title": "考研英语",
+      "title": "外语读写与学术积累",
       "tasks": [
         {
           "id": "en-mon",
-          "title": "单词打卡",
+          "title": "核心高频学术词汇打卡 50 词",
           "done": false,
           "xp": 30,
           "awarded": false,
@@ -158,7 +158,7 @@
         },
         {
           "id": "en-tue",
-          "title": "单词与长难句分析",
+          "title": "经典外刊长难句精读与语法解析",
           "done": false,
           "xp": 30,
           "awarded": false,
@@ -168,7 +168,7 @@
         },
         {
           "id": "en-wed",
-          "title": "单词打卡与语法巩固",
+          "title": "学术听力与跟读训练 30 分钟",
           "done": false,
           "xp": 30,
           "awarded": false,
@@ -178,7 +178,7 @@
         },
         {
           "id": "en-thu",
-          "title": "单词打卡与语法强化",
+          "title": "专业外语文献深度速读与摘要",
           "done": false,
           "xp": 30,
           "awarded": false,
@@ -188,7 +188,7 @@
         },
         {
           "id": "en-fri",
-          "title": "单词打卡",
+          "title": "真题阅读理解精炼与生词归纳",
           "done": false,
           "xp": 30,
           "awarded": false,
@@ -198,7 +198,7 @@
         },
         {
           "id": "en-sat",
-          "title": "真题长难句与词汇攻坚",
+          "title": "学术写作句型仿写与词汇巩固",
           "done": false,
           "xp": 40,
           "awarded": false,
@@ -208,7 +208,7 @@
         },
         {
           "id": "en-sun",
-          "title": "单词打卡与周度复习",
+          "title": "全周生词本盲测与周度复盘",
           "done": false,
           "xp": 30,
           "awarded": false,
@@ -221,11 +221,11 @@
     },
     {
       "id": "cs",
-      "title": "专业课复盘与实践",
+      "title": "专业实践与项目构建",
       "tasks": [
         {
           "id": "cs-mon",
-          "title": "课程复盘：嵌入式 / JavaEE / 计网",
+          "title": "项目架构设计与核心模块规划",
           "done": false,
           "xp": 40,
           "awarded": false,
@@ -235,7 +235,7 @@
         },
         {
           "id": "cs-tue",
-          "title": "移动开发实践：课堂代码重跑与功能实现",
+          "title": "核心接口开发与功能逻辑实现",
           "done": false,
           "xp": 50,
           "awarded": false,
@@ -245,7 +245,7 @@
         },
         {
           "id": "cs-wed",
-          "title": "操作系统复盘：整理课堂理论与机制",
+          "title": "单元测试编写与代码质量检查",
           "done": false,
           "xp": 40,
           "awarded": false,
@@ -255,7 +255,7 @@
         },
         {
           "id": "cs-fri",
-          "title": "专业课欠账清理：检查遗留作业与代码",
+          "title": "项目文档撰写与遗留问题清理",
           "done": false,
           "xp": 40,
           "awarded": false,
@@ -272,7 +272,7 @@
       "tasks": [
         {
           "id": "rev-sun",
-          "title": "Sunday 8 问周度复盘清单",
+          "title": "Sunday 8 问全周深度复盘清单",
           "done": false,
           "xp": 50,
           "awarded": false,
